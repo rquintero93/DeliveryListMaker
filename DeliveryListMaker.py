@@ -141,7 +141,7 @@ def fill_experience(row):
 def process_files(ee,ga):
     ee = pd.read_excel(ee)
     ga = pd.read_excel(ga)
-    codigos = pd.read_csv("~/Codigos de Universidades.csv")
+    codigos = pd.read_csv("Codigos de Universidades.csv")
 
 
     ga = ga.merge(codigos, left_on="Código GA Programa", right_on="SF GA", how="inner")
