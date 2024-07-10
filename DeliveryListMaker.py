@@ -11,13 +11,11 @@ def fill_ga_code(row):
     else:
         return row["Código GA Programa"]
 
-
 def fill_contact_email(row):
     if pd.isna(row["Contact Email"]):
         return row["Email Address"]
     else:
         return row["Contact Email"]
-
 
 def fill_first_name(row):
     if pd.isna(row["Contact First Name"]):
@@ -25,13 +23,11 @@ def fill_first_name(row):
     else:
         return row["Contact First Name"]
 
-
 def fill_last_name(row):
     if pd.isna(row["Contact Last Name"]):
         return row["Person Account: Last Name"]
     else:
         return row["Contact Last Name"]
-
 
 def fill_id_contacto(row):
     if pd.isna(row["ID contacto"]):
@@ -39,13 +35,11 @@ def fill_id_contacto(row):
     else:
         return row["ID contacto"]
 
-
 def fill_id_oportunidad(row):
     if pd.isna(row["Id. de la oportunidad"]):
         return row["Online Application ID"]
     else:
         return row["Id. de la oportunidad"]
-
 
 def fill_language(row):
     if pd.isna(row["Account Language"]):
@@ -53,13 +47,11 @@ def fill_language(row):
     else:
         return row["Account Language"]
 
-
 def tipologia_programa(row):
     if pd.isna(row["Account Tipología de programa"]):
         return row["LOB Category"]
     else:
         return row["Account Tipología de programa"]
-
 
 def fill_stage(row):
     if pd.isna(row["Estado admisión/inscripción"]):
@@ -67,13 +59,11 @@ def fill_stage(row):
     else:
         return row["Estado admisión/inscripción"]
 
-
 def fill_convocatoria(row):
     if pd.isna(row["Inscrito convocatoria"]):
         return row["Interested Course: Batch Start Month And Year"]
     else:
         return row["Inscrito convocatoria"]
-
 
 def fill_estado_pago(row):
     if pd.isna(row["Estado pagos"]):
@@ -81,13 +71,11 @@ def fill_estado_pago(row):
     else:
         return row["Estado pagos"]
 
-
 def fill_gender(row):
     if pd.isna(row["Contact Gender"]):
         return row["Gender"]
     else:
         return row["Contact Gender"]
-
 
 def fill_country(row):
     if pd.isna(row["ISO - Pais"]):
@@ -95,13 +83,11 @@ def fill_country(row):
     else:
         return row["ISO - Pais"]
 
-
 def fill_empresa(row):
     if pd.isna(row["Empresa"]):
         return row["Company Name.1"]
     else:
         return row["Empresa"]
-
 
 def fill_cargo(row):
     if pd.isna(row["Contacto: Cargo"]):
@@ -109,13 +95,11 @@ def fill_cargo(row):
     else:
         return row["Contacto: Cargo"]
 
-
 def sector(row):
     if pd.isna(row["Sector Empresa"]):
         return row["Your Industry"]
     else:
         return row["Sector Empresa"]
-
 
 def fill_area(row):
     if pd.isna(row["Área/ Departamento"]):
@@ -123,13 +107,11 @@ def fill_area(row):
     else:
         return row["Área/ Departamento"]
 
-
 def fill_contact_job_title(row):
     if pd.isna(row["Contact Job Title"]):
         return row["Your Function"]
     else:
         return row["Contact Job Title"]
-
 
 def fill_experience(row):
     if pd.isna(row["Años de experiencia profesional"]):
@@ -137,18 +119,15 @@ def fill_experience(row):
     else:
         return row["Años de experiencia profesional"]
 
-
 def process_files(ee,ga):
     ee = pd.read_excel(ee)
     ga = pd.read_excel(ga)
     codigos = pd.read_csv("Codigos de Universidades.csv")
 
-
     ga = ga.merge(codigos, left_on="Código GA Programa", right_on="SF GA", how="inner")
     ee = ee.merge(
         codigos, left_on="Interested Course: Programme", right_on="SF EM", how="inner"
     )
-
 
     merged = ga.merge(
         ee,
@@ -177,9 +156,7 @@ def process_files(ee,ga):
     merged["Contact Job Title"] = merged.apply(fill_contact_job_title, axis=1)
     merged["Años de experiencia profesional"] = merged.apply(fill_experience, axis=1)
 
-
     merged = merged.drop_duplicates(subset=["Contact Email", "Código GA Programa"])
-
 
     output = merged[
         [
@@ -210,7 +187,6 @@ def process_files(ee,ga):
     ]
 
     return output
-
 
 st.title("Delivery List Maker")
 
