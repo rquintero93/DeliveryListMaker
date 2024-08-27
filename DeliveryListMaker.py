@@ -181,8 +181,8 @@ def process_files(ee,ga):
             "Área/ Departamento",
             "Contact Job Title",
             "Años de experiencia profesional",
-            "URL oportunidad",
-            "Marca accion",
+            # "URL oportunidad",
+            # "Marca accion",
         ]
     ]
 
